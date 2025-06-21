@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*
+
+Style our app according to the provided design!
+
+green color -> #5f9341
+
+*/
+
+
+input {
+   width:100%;
+   padding-left: 10px; 
+   padding-right: 10px;
+   box-sizing: border-box;
+   padding-bottom: 10px;
+   padding-top: 10px;
+   border : 1px solid #5f9341;
+}
+
+button {
+    background-color:#5f9341 ;
+    color : white;
+    border-color: none;
+    width: 150px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-top: 5px;
+    border:none;
+    font-weight: bold;
+}
