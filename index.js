@@ -2,7 +2,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebas
 import { getDatabase,
           ref,
     push,
-   onValue } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js"
+   onValue,
+remove } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js"
 
  const firebaseConfig = {
   apiKey: "AIzaSyAOPoV3zm-Ms7uNiMPsgfJMkxNTF8adrgk",
@@ -46,12 +47,19 @@ function render(leads) {
     ulEl.innerHTML = listItems
 }
 
-onValue(referenceInDB , function(snapshot){
-    console.log(snapshot.val)
+onValue(ref(database, "leads"), function(snapshot) {
+    const snapshotDoesExist = snapshot.exists()
+    if(snapshotDoesExist){
+  const snapshotValues = snapshot.val();
+  console.log(snapshotValues);
+  const leads = Object.values(snapshotValues)
+  render(leads)
+}
 })
 
 deleteBtn.addEventListener("dblclick", function() {
-    
+    remove(referenceInDB)
+    ulEl.innerHTML=""
 })
 
 inputBtn.addEventListener("click", function() {
