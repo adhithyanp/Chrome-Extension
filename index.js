@@ -1,33 +1,35 @@
-let myLeads = []
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js"
+import { getDatabase,
+          ref,
+    push } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js"
+
+ const firebaseConfig = {
+  apiKey: "AIzaSyAOPoV3zm-Ms7uNiMPsgfJMkxNTF8adrgk",
+  authDomain: "leads-tracker-app-1c575.firebaseapp.com",
+  databaseURL: "https://leads-tracker-app-1c575-default-rtdb.firebaseio.com",
+  projectId: "leads-tracker-app-1c575",
+  storageBucket: "leads-tracker-app-1c575.appspot.com", 
+  messagingSenderId: "429650056860",
+  appId: "1:429650056860:web:1d41702e5c1b1ccfb3ff59"
+    
+ }
+
+  const app = initializeApp(firebaseConfig)
+  const database = getDatabase(app)
+ const referenceInDB = ref(database ,"leads" )
+
+
 const inputEl = document.getElementById("input-el")
 const inputBtn = document.getElementById("input-btn")
 const ulEl = document.getElementById("ul-el")
 const deleteBtn = document.getElementById("delete-btn")
-const leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
-const tabBtn = document.getElementById("tab-btn")
 
-if (leadsFromLocalStorage) {
-    myLeads = leadsFromLocalStorage
-    render(myLeads)
-}
+
 
 const tabs = [
     {url: "https://www.linkedin.com/in/per-harald-borgen/"}
 ]
 
-
-tabBtn.addEventListener("click", function(){
-    // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    // })
-    
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-        myLeads.push(tabs[0].url)
-        localStorage.setItem("myLeads", JSON.stringify(myLeads) )
-        render(myLeads)
-    })
-
-    
-})
 
 function render(leads) {
     let listItems = ""
@@ -44,14 +46,11 @@ function render(leads) {
 }
 
 deleteBtn.addEventListener("dblclick", function() {
-    localStorage.clear()
-    myLeads = []
-    render(myLeads)
+    
 })
 
 inputBtn.addEventListener("click", function() {
-    myLeads.push(inputEl.value)
+    push(referenceInDB , inputEl.value)
     inputEl.value = ""
-    localStorage.setItem("myLeads", JSON.stringify(myLeads) )
-    render(myLeads)
+    
 })
